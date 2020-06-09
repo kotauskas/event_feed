@@ -60,6 +60,18 @@ where Evt: fmt::Debug + Send {
         .finish()
     }
 }
+impl<'r, Evt> IntoIterator for &'r Reader<Evt>
+where Evt: Send {
+    type IntoIter = ReaderIter<'r, Evt>;
+    type Item = Evt;
+    /// Creates an iterator which reads and removes events from the queue.
+    ///
+    /// Equivalent to `self.read()`, intended to be used in `for` loops.
+    #[inline(always)]
+    fn into_iter(self) -> ReaderIter<'r, Evt> {
+        self.read()
+    }
+}
 
 /// An iterator used for processing events in an event reader's queue.
 ///

@@ -2,7 +2,6 @@ use std::{
     sync::{
         Arc, Weak as WArc,
     },
-    fmt::{self, Formatter},
 };
 use crate::{
     Reader,
